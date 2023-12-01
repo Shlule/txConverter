@@ -3,15 +3,13 @@ import sys
 import multiprocessing
 import subprocess
 from pathlib import Path
+import conf
 
 nb_cpu = multiprocessing.cpu_count()
 
-authozied_format = [".tiff", ".exr", "png"]
+authozied_format = [".tiff", ".exr", ".png"]
 
-
-maketx_path = "C:/Arnold/bin/maketx.exe"
-folder_path = "D:/textureexr/NORDIC_GRAVELS" 
-
+maketx_path = conf.maketx_path
 
 def extract_authorized_file(folder_path: str):
     file_names = os.listdir(folder_path)
@@ -44,19 +42,16 @@ def convert_to_tx(file_path:str):
 
     
 def main():
+    folder_path = sys.argv[1]
     input_files = create_file_path_list(folder_path)
     max_processes = multiprocessing.cpu_count() -2
 
     with multiprocessing.Pool(max_processes)as pool:
         pool.map(convert_to_tx, input_files)
+    print("Travaille terminé!")
     
 
 
 if __name__ == "__main__":
-    # print(extract_authorized_file("D:/textureexr/NORDIC_GRAVELS"))
-    # convert_to_tx("D:/textureexr/LAYERED_CLIFF/ve4kbgeg_8K_Displacement.exr","D:/textureexr/LAYERED_CLIFF/ve4kbgeg_8K_Displacement.tx")
-    # print(create_file_path_list("D:/textureexr/NORDIC_GRAVELS" ))
-    # main()
-    print(sys.argv[1])
-
-# print(file_names)
+    
+    main()

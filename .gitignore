@@ -5,6 +5,7 @@ build/
 dist/
 wheels/
 *.egg-info
+window_menu.bat
 
 # venv
 .venv
